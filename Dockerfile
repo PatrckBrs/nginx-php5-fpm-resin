@@ -15,7 +15,8 @@ apt-get install --assume-yes \
     php5-common \
     php-xml-parser \
     php-apc \
-    ntp
+    ntp \
+    supervisor
 
 # COPY PHP-FPM Configuration
 COPY ./nginx/conf.d/php5-fpm.conf /etc/nginx/conf.d/php5-fpm.conf
@@ -45,4 +46,4 @@ WORKDIR /var/www/html
 EXPOSE 80 443
 
 # Boot up Nginx, and PHP5-FPM when container is started
-CMD service php5-fpm start && nginx
+CMD ["nginx", "-g", "daemon off;"]
