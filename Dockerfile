@@ -51,4 +51,4 @@ EXPOSE 80 443
 
 # Boot up Nginx, and PHP5-FPM when container is started with supervisor
 #CMD [/usr/bin/supervisord -n -c /etc/supervisord.conf]
-CMD ["bash"]
+CMD ["nginx", "-g", "daemon off;"]
