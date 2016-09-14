@@ -50,4 +50,4 @@ WORKDIR /var/www/html
 EXPOSE 80 443
 
 # Boot up Nginx, and PHP5-FPM when container is started with supervisor
-CMD [start.sh]
+CMD [/usr/bin/supervisord -n -c /etc/supervisord.conf]
