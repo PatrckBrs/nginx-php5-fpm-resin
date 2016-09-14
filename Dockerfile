@@ -30,10 +30,6 @@ COPY ./phpinfo.php /var/www/html/phpinfo.php
 # Supervisor file
 COPY supervisord.conf /etc/supervisord.conf
 
-# start.sh
-COPY start.sh /start.sh 
-RUN chmod +x /start.sh
-
 RUN sed -i -e "s/listen \= 127.0.0.1\:9000/listen \= \/var\/run\/php5-fpm.sock/" /etc/php5/fpm/pool.d/www.conf && \
 sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf && \
 sed -i -e "s/;env/env/g" /etc/php5/fpm/pool.d/www.conf && \
