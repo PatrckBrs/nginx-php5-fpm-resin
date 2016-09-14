@@ -28,7 +28,7 @@ COPY ./nginx/sites-available/default /etc/nginx/sites-available/default
 COPY ./phpinfo.php /var/www/html/phpinfo.php
 
 # Supervisor file
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY supervisord.conf /etc/supervisord.conf
 
 RUN sed -i -e "s/listen \= 127.0.0.1\:9000/listen \= \/var\/run\/php5-fpm.sock/" /etc/php5/fpm/pool.d/www.conf && \
 sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf && \
