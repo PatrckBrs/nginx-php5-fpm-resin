@@ -36,7 +36,9 @@ RUN chmod +x /start.sh
 
 RUN sed -i -e "s/listen \= 127.0.0.1\:9000/listen \= \/var\/run\/php5-fpm.sock/" /etc/php5/fpm/pool.d/www.conf && \
 sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf && \
-sed -i -e "s/;env/env/g" /etc/php5/fpm/pool.d/www.conf
+sed -i -e "s/;env/env/g" /etc/php5/fpm/pool.d/www.conf && \
+sed -i -e "s/worker_processes 4;/worker_processes 1;" /etc/nginx/nginx.conf && \
+sed -i -e "s/# server_tokens off;/server_tokens on;" /etc/nginx/nginx.conf
 
 RUN echo "Europe/Paris" > /etc/timezone && dpkg-reconfigure tzdata && sed -i 's/.debian./.fr./g' /etc/ntp.conf
 
