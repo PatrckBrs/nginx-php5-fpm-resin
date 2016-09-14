@@ -1,1 +1,1 @@
-<img src="http://jenkins.test.codexatomos.org/job/Nginx%20PHP%20Resin/badge/icon">
+<img src="http://bit.ly/2cxfARO">
