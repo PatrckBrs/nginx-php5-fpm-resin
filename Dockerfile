@@ -27,12 +27,14 @@ COPY ./nginx/sites-available/default /etc/nginx/sites-available/default
 # COPY index.php info
 COPY ./phpinfo.php /var/www/html/phpinfo.php
 
-# Turn off daemon mode
-#RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
+# Supervisor file
+COPY supervisord.conf /etc/supervisord.conf
 
 RUN sed -i -e "s/listen \= 127.0.0.1\:9000/listen \= \/var\/run\/php5-fpm.sock/" /etc/php5/fpm/pool.d/www.conf && \
 sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf && \
-sed -i -e "s/;env/env/g" /etc/php5/fpm/pool.d/www.conf
+sed -i -e "s/;env/env/g" /etc/php5/fpm/pool.d/www.conf && \
+sed -i -e "s/worker_processes 4;/worker_processes 1;/g" /etc/nginx/nginx.conf && \
+sed -i -e "s/# server_tokens off;/server_tokens on;/g" /etc/nginx/nginx.conf
 
 RUN echo "Europe/Paris" > /etc/timezone && dpkg-reconfigure tzdata && sed -i 's/.debian./.fr./g' /etc/ntp.conf
 
@@ -45,5 +47,5 @@ WORKDIR /var/www/html
 # Ports
 EXPOSE 80 443
 
-# Boot up Nginx, and PHP5-FPM when container is started
-CMD ["nginx", "-g", "daemon off;"]
+# Boot up Nginx, and PHP5-FPM when container is started with supervisor
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
