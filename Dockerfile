@@ -1,6 +1,8 @@
 # Dockerfile Raspberry Pi Nginx
 FROM resin/rpi-raspbian:latest
 
+MAINTAINER Patrick Brunias <patrick@brunias.org> 
+
 # Update sources && install packages
 RUN DEBIAN_FRONTEND=noninteractive ;\
 apt-get update && \
