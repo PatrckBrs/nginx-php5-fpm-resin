@@ -18,6 +18,7 @@ apt-get install --assume-yes \
     php-xml-parser \
     php-apc \
     ntp \
+    locales \
     supervisor && \
     rm -rf /var/lib/apt/lists/* 
 
@@ -40,6 +41,8 @@ sed -i -e "s/worker_processes 4;/worker_processes 2;/g" /etc/nginx/nginx.conf &&
 sed -i -e "s/# server_tokens off;/server_tokens on;/g" /etc/nginx/nginx.conf
 
 RUN echo "Europe/Paris" > /etc/timezone && dpkg-reconfigure tzdata && sed -i 's/.debian./.fr./g' /etc/ntp.conf
+RUN locale-gen fr_FR fr_FR.UTF-8 && \ 
+dpkg-reconfigure -f noninteractive locales
 
 # Volume
 VOLUME ["/etc/nginx", "/etc/nginx/conf.d", "/var/www/html"]
