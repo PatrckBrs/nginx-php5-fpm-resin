@@ -12,7 +12,6 @@ apt-get install --assume-yes \
     php5 \
     php5-json \
     php5-gd \
-    php5-sqlite \
     php5-curl \
     php5-common \
     php-xml-parser \
